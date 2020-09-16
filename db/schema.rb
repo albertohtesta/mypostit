@@ -10,14 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_01_234902) do
+ActiveRecord::Schema.define(version: 2020_09_14_235714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "body"
     t.integer "user_id"
+    t.integer "post_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "post_categories", force: :cascade do |t|
+    t.integer "category_id"
     t.integer "post_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -36,6 +49,17 @@ ActiveRecord::Schema.define(version: 2020_09_01_234902) do
     t.string "username"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "password_digest"
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.boolean "vote"
+    t.integer "user_id"
+    t.string "voteable_type"
+    t.bigint "voteable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["voteable_type", "voteable_id"], name: "index_votes_on_voteable_type_and_voteable_id"
   end
 
 end

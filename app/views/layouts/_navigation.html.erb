@@ -1,0 +1,111 @@
+    <!-- Begin Bootstrap Navbar -->
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">Postit!</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+ 
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+
+
+          <li class="nav-item dropdown">
+            <%= link_to '#', class: 'nav-link dropdown-toggle', 'data-toggle' => 'dropdown' do %>
+          Categories <span class='caret'></span>
+            <% end %>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <% Category.all.each do |category| %>
+                <div>
+                  <%= link_to category.name, category_path(category), class: 'dropdown-item' %>
+                </div>
+              <% end %>
+              <% if logged_in? %>
+                <div class="dropdown-divider"></div>
+                  <%= link_to(new_category_path) do %>
+                  <div class="dropdown-item">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                    </svg>
+                    New category
+                  </div>
+                <% end %>
+              <% end %>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+
+
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          </li>
+
+          <% if logged_in? %>
+
+            <li class="nav-item dropdown">
+              <%= link_to('#', class: 'nav-link dropdown-toggle', 'data-toggle' => 'dropdown') do %>
+                <%= current_user.username %> <span class='caret'></span>
+              <% end %>
+
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <%= link_to edit_user_path(current_user) do %>
+                        <div class="dropdown-item">
+
+                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                          </svg>
+                          Edit Profile
+                        </div>
+
+                    <% end %>
+
+
+                <%= link_to user_path(current_user) do %>
+                        <div class="dropdown-item">
+                          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                          </svg>
+
+                          Show Profile
+                        </div>
+
+                    <% end %>
+
+                <%= link_to logout_path do %>
+                        <div class="dropdown-item">
+                          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-door-closed-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4 1a1 1 0 0 0-1 1v13H1.5a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2a1 1 0 0 0-1-1H4zm2 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                          </svg>
+
+                          Logout
+                        </div>
+
+                    <% end %>
+              </div>
+            </li>
+
+            <li class='nav-item'>
+              <%= link_to 'New Post', new_post_path, class: 'btn btn-success btn-small' %>
+            </li>
+
+          <% else # logged out %>
+            <li class='nav-item'>
+              <%= link_to 'Register', register_path, class: 'btn btn-small' %>
+            </li>
+            <li class='nav-item'>
+              <%= link_to 'Log in', login_path, class: 'btn btn-small' %>
+            </li>
+          <% end %>
+
+        </ul>
+
+      </div>
+    </nav>
+    
+    <!-- End Bootstrap Navbar -->
