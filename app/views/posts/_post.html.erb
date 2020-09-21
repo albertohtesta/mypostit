@@ -12,7 +12,7 @@
 							<% end %>
 
 							</br>
-							<%= post.total_votes %>votes
+							<span id='post_<%=post.slug%>_votes>'	><%= post.total_votes %> votes</span>
 							</br>
 							
 							<%= link_to vote_post_path(post, vote: false), method: 'post' do %>
